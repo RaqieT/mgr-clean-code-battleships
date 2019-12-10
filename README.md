@@ -1,6 +1,8 @@
 # Battleships
 ## JVM options
--Dbattleships.columns
+-Dbattleships.columns  
 -Dbattleships.rows
-## Build
-clean compile assembly:single
+## Build jar
+```
+mvn clean compile assembly:single
+```
