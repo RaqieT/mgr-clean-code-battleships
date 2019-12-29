@@ -4,20 +4,21 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class Configuration {
     private static Configuration instance = new Configuration();
 
     private static final String COLUMNS_PROPERTY = "battleships.columns";
-    private Integer columns;
+    private Integer columns = 10;
 
     private static final String ROWS_PROPERTY = "battleships.rows";
-    private Integer rows;
+    private Integer rows = 10;
 
     private Configuration() {
-        this.columns = parseIntFromProperty(COLUMNS_PROPERTY, 2);
-        this.rows = parseIntFromProperty(ROWS_PROPERTY, 2);
+        parseIntFromProperty(COLUMNS_PROPERTY, 2).ifPresent(value -> this.columns = value);
+        parseIntFromProperty(ROWS_PROPERTY, 2).ifPresent(value -> this.rows = value);
     }
 
     public static Configuration getInstance() {
@@ -33,14 +34,18 @@ public class Configuration {
         return result;
     }
 
-    private Integer parseIntFromProperty(String prop, int minValue) {
+    private Optional<Integer> parseIntFromProperty(String prop, int minValue) {
         int value;
+        String property = System.getProperty(prop);
+        if (property == null) {
+            return Optional.empty();
+        }
         try {
-            value = Integer.parseInt(System.getProperty(prop));
+            value = Integer.parseInt(property);
         } catch (NumberFormatException e) {
-            return minValue;
+            return Optional.empty();
         }
 
-        return Math.max(value, minValue);
+        return Optional.of(Math.max(value, minValue));
     }
 }
