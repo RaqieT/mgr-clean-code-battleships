@@ -10,4 +10,8 @@ public class Field {
     private boolean picked = false;
     @NonNull
     private FieldType fieldType;
+
+    public enum  FieldType {
+        EMPTY, SHIP
+    }
 }

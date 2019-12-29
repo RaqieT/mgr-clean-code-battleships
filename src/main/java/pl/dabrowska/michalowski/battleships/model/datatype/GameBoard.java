@@ -17,7 +17,13 @@ public class GameBoard {
         return Collections.unmodifiableMap(fieldMap);
     }
 
-    public void setFieldPicked(int row, char col) {
-        fieldMap.get(col).get(row).setPicked(true);
+    public Field.FieldType setFieldPicked(int row, char col) {
+        Field field = fieldMap.get(col).get(row);
+        field.setPicked(true);
+        return field.getFieldType();
+    }
+
+    public void setFieldType(int row, char col, Field.FieldType fieldType) {
+        fieldMap.get(col).get(row).setFieldType(fieldType);
     }
 }

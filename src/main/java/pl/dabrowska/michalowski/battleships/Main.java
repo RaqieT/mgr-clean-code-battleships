@@ -1,9 +1,7 @@
 package pl.dabrowska.michalowski.battleships;
 
 import pl.dabrowska.michalowski.battleships.controller.ConsoleViewController;
-import pl.dabrowska.michalowski.battleships.model.factory.GameBoardFactory;
 import pl.dabrowska.michalowski.battleships.model.service.GameService;
-import pl.dabrowska.michalowski.battleships.view.element.GameBoardViewElement;
 import pl.dabrowska.michalowski.battleships.view.renderer.ConsoleRenderer;
 
 import java.io.BufferedReader;
@@ -15,11 +13,11 @@ public class Main {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String line;
 
-        GameService model = new GameService(GameBoardFactory.createEmpty());
-        ConsoleRenderer view = new ConsoleRenderer(new GameBoardViewElement());
+        GameService model = new GameService();
+        ConsoleRenderer view = new ConsoleRenderer();
         ConsoleViewController consoleViewController = new ConsoleViewController(model, view);
 
-        while ((line = bufferedReader.readLine()) != null && !line.equals("exit")) {
+        while ((line = bufferedReader.readLine()) != null) {
             consoleViewController.readInput(line);
         }
     }

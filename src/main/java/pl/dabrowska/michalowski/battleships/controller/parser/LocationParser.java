@@ -1,13 +1,15 @@
-package pl.dabrowska.michalowski.battleships.controller.dataparser;
+package pl.dabrowska.michalowski.battleships.controller.parser;
 
+import org.javatuples.Pair;
 import pl.dabrowska.michalowski.battleships.exception.WrongInputException;
 import pl.dabrowska.michalowski.battleships.model.Configuration;
-import pl.dabrowska.michalowski.battleships.model.service.cmd.ShootFieldCommand;
 
 import java.util.stream.Collectors;
 
-public class ShootFieldCommandParser {
-    public static ShootFieldCommand parse(String input) throws WrongInputException {
+public class LocationParser {
+    private static final Integer ROW_OFFSET = 1;
+
+    public static Pair<Integer, Character> getLocation(String input) throws WrongInputException {
         String upperCasedInput = input.toUpperCase();
         int inputLength = upperCasedInput.length();
         if (inputLength < 2 || inputLength > 3) {
@@ -35,6 +37,6 @@ public class ShootFieldCommandParser {
             throw new WrongInputException("Wrong row number: " + parsedNumber + " expected [1-" + Configuration.getInstance().getColumns() + "]");
         }
 
-        return new ShootFieldCommand(parsedNumber, c);
+        return Pair.with(parsedNumber - ROW_OFFSET, c);
     }
 }
