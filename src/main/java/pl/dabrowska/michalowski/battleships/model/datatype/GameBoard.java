@@ -17,13 +17,13 @@ public class GameBoard {
         return Collections.unmodifiableMap(fieldMap);
     }
 
-    public Field.FieldType setFieldPicked(int row, char col) {
-        Field field = fieldMap.get(col).get(row);
+    public Field.FieldType setFieldPicked(int col, char row) {
+        Field field = fieldMap.get(row).get(col);
         field.setPicked(true);
         return field.getFieldType();
     }
 
-    public void setFieldType(int row, char col, Field.FieldType fieldType) {
-        fieldMap.get(col).get(row).setFieldType(fieldType);
+    public void setFieldType(int col, char row, Field.FieldType fieldType) {
+        fieldMap.get(row).get(col).setFieldType(fieldType);
     }
 }
