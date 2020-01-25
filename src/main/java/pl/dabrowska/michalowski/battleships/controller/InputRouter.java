@@ -4,7 +4,10 @@ import org.javatuples.Pair;
 import pl.dabrowska.michalowski.battleships.exception.WrongInputException;
 import pl.dabrowska.michalowski.battleships.util.CommandExecutor;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class InputRouter {
@@ -14,7 +17,7 @@ public class InputRouter {
         return commandMap.keySet();
     }
 
-    public <T> void addCommand(String command, CommandExecutor executor, String help) {
+    public void addCommand(String command, CommandExecutor executor, String help) {
         commandMap.put(command, Pair.with(executor, help));
     }
 

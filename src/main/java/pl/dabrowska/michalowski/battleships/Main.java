@@ -10,15 +10,16 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String line;
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+            String line;
 
-        GameService model = new GameService();
-        ConsoleRenderer view = new ConsoleRenderer();
-        ConsoleViewController consoleViewController = new ConsoleViewController(model, view);
+            GameService model = new GameService();
+            ConsoleRenderer view = new ConsoleRenderer();
+            ConsoleViewController consoleViewController = new ConsoleViewController(model, view);
 
-        while ((line = bufferedReader.readLine()) != null) {
-            consoleViewController.readInput(line);
+            while ((line = bufferedReader.readLine()) != null) {
+                consoleViewController.readInput(line);
+            }
         }
     }
 }
