@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 public class LocationParser {
     private static final Integer ROW_OFFSET = 1;
 
+    private LocationParser(){};
+
     public static Pair<Integer, Character> getLocation(String input) throws WrongInputException {
         String upperCasedInput = input.toUpperCase();
         int inputLength = upperCasedInput.length();

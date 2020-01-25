@@ -8,6 +8,7 @@ import pl.dabrowska.michalowski.battleships.model.datatype.Game;
 import pl.dabrowska.michalowski.battleships.model.factory.GameFactory;
 
 public class GameService {
+    private static final String CAN_ADD_ONLY_IN_PREPARATION_PHASE = "You can add ship only in preparation phase";
 
     @NonNull
     @Getter
@@ -29,7 +30,7 @@ public class GameService {
     // PREPARATION PHASE
     public void addShip(Pair<Integer, Character> location) throws WrongInputException {
         if (!this.game.getState().equals(Game.GameState.PREPARATION)) {
-            throw new WrongInputException("You can add ship only in preparation phase");
+            throw new WrongInputException(CAN_ADD_ONLY_IN_PREPARATION_PHASE);
         }
 
         gameBoardService.setShipInLocation(location);
@@ -37,7 +38,7 @@ public class GameService {
 
     public void removeShip(Pair<Integer, Character> location) throws WrongInputException {
         if (!this.game.getState().equals(Game.GameState.PREPARATION)) {
-            throw new WrongInputException("You can add ship only in preparation phase");
+            throw new WrongInputException("You can remove ship only in preparation phase");
         }
 
         gameBoardService.setEmptyInLocation(location);
@@ -45,7 +46,7 @@ public class GameService {
 
     public void addShipsOnRandomLocations() throws WrongInputException {
         if (!this.game.getState().equals(Game.GameState.PREPARATION)) {
-            throw new WrongInputException("You can add ship only in preparation phase");
+            throw new WrongInputException(CAN_ADD_ONLY_IN_PREPARATION_PHASE);
         }
 
         gameBoardService.setRandomShips();
@@ -65,7 +66,7 @@ public class GameService {
 
     public void clearGameBoard() throws WrongInputException {
         if (!this.game.getState().equals(Game.GameState.PREPARATION)) {
-            throw new WrongInputException("You can add ship only in preparation phase");
+            throw new WrongInputException(CAN_ADD_ONLY_IN_PREPARATION_PHASE);
         }
 
         gameBoardService.clear();

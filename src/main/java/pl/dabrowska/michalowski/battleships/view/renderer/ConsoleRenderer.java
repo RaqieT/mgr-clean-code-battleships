@@ -1,19 +1,17 @@
 package pl.dabrowska.michalowski.battleships.view.renderer;
 
+import org.apache.log4j.Logger;
 import lombok.Data;
-import lombok.NonNull;
-import pl.dabrowska.michalowski.battleships.exception.RenderingException;
 import pl.dabrowska.michalowski.battleships.model.datatype.Game;
 import pl.dabrowska.michalowski.battleships.view.element.GameViewElement;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Data
 public class ConsoleRenderer {
+    static final Logger logger = Logger.getLogger(ConsoleRenderer.class);
+
     private GameViewElement gameViewElement = new GameViewElement();
 
-    public void updateView(Game game) throws RenderingException {
+    public void updateView(Game game) {
         updateView(game, null);
     }
 
@@ -30,14 +28,14 @@ public class ConsoleRenderer {
         }
         if (game.getState().equals(Game.GameState.WON)) {
             builder.append("You won, type exit to end:");
-            System.out.println(builder.toString());
+            logger.info(builder.toString());
             return;
         }
         builder.append("Enter the command (type help for command list): ");
-        System.out.println(builder);
+       logger.info(builder.toString());
     }
 
-    private final static void clearConsole() {
+    private static final void clearConsole() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         } catch (final Exception e) {

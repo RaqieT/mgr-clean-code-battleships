@@ -8,6 +8,9 @@ import java.util.*;
 
 public class GameBoardFactory {
 
+    private GameBoardFactory() {
+    }
+
     public static GameBoard createEmpty() {
         Map<Character, List<Field>> map = new LinkedHashMap<>();
 

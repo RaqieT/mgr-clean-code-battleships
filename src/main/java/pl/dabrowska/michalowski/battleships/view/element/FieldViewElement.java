@@ -5,18 +5,17 @@ import pl.dabrowska.michalowski.battleships.exception.RenderingException;
 
 public class FieldViewElement implements ViewElement<Field> {
     @Override
-    public String prepareText(Field field) throws RenderingException {
-        switch (field.getFieldType()) {
-            case SHIP:
-                if (field.isPicked()) {
-                    return "X";
-                }
-                return "S";
-            case EMPTY:
-                if (field.isPicked()) {
-                    return "M";
-                }
-                return " ";
+    public String prepareText(Field field) {
+        if (field.getFieldType() == Field.FieldType.SHIP) {
+            if (field.isPicked()) {
+                return "X";
+            }
+            return "S";
+        } else if (field.getFieldType() == Field.FieldType.EMPTY) {
+            if (field.isPicked()) {
+                return "M";
+            }
+            return " ";
         }
 
         throw new RenderingException("Unsupported field type");

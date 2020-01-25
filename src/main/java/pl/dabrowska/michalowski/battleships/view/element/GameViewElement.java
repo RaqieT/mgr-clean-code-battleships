@@ -1,12 +1,11 @@
 package pl.dabrowska.michalowski.battleships.view.element;
 
-import pl.dabrowska.michalowski.battleships.exception.RenderingException;
 import pl.dabrowska.michalowski.battleships.model.datatype.Game;
 import pl.dabrowska.michalowski.battleships.model.datatype.GameBoard;
 
 public class GameViewElement implements ViewElement<Game> {
     @Override
-    public String prepareText(Game object) throws RenderingException {
+    public String prepareText(Game object) {
         final StringBuilder builder = new StringBuilder();
 
         ViewElement<GameBoard> fieldViewElement = new GameBoardViewElement();

@@ -8,11 +8,23 @@ import pl.dabrowska.michalowski.battleships.model.Configuration;
 import pl.dabrowska.michalowski.battleships.model.datatype.Field;
 import pl.dabrowska.michalowski.battleships.model.datatype.GameBoard;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 @RequiredArgsConstructor
 public class GameBoardService {
     private static final Configuration config = Configuration.getInstance();
+    private Random random;
+
+    {
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @NonNull
     @Getter
@@ -39,10 +51,9 @@ public class GameBoardService {
     }
 
     public void setRandomShips() {
-        Random r = new Random();
         gameBoard.getFieldMap().forEach((key, value) -> {
             for (int i = 0; i < value.size(); i++) {
-                gameBoard.setFieldType(i, key, r.nextBoolean() ? Field.FieldType.SHIP : Field.FieldType.EMPTY);
+                gameBoard.setFieldType(i, key, random.nextBoolean() ? Field.FieldType.SHIP : Field.FieldType.EMPTY);
             }
         });
     }
