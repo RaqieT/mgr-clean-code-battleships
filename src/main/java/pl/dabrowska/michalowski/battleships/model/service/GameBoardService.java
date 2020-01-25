@@ -3,32 +3,25 @@ package pl.dabrowska.michalowski.battleships.model.service;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.log4j.Logger;
 import org.javatuples.Pair;
 import pl.dabrowska.michalowski.battleships.model.Configuration;
 import pl.dabrowska.michalowski.battleships.model.datatype.Field;
 import pl.dabrowska.michalowski.battleships.model.datatype.GameBoard;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
 
 @RequiredArgsConstructor
 public class GameBoardService {
+    private static final Logger logger = Logger.getLogger(GameBoardService.class);
     private static final Configuration config = Configuration.getInstance();
     private Random random;
-
-    {
-        try {
-            random = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @NonNull
     @Getter
     private GameBoard gameBoard;
+
 
     public boolean pickFieldInLocationAndCheckIfItIsShip(Pair<Integer, Character> location) {
         Field.FieldType fieldType = gameBoard.setFieldPicked(location.getValue0(), location.getValue1());
@@ -51,6 +44,11 @@ public class GameBoardService {
     }
 
     public void setRandomShips() {
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            logger.error(e);
+        }
         gameBoard.getFieldMap().forEach((key, value) -> {
             for (int i = 0; i < value.size(); i++) {
                 gameBoard.setFieldType(i, key, random.nextBoolean() ? Field.FieldType.SHIP : Field.FieldType.EMPTY);
